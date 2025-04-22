@@ -42,6 +42,19 @@ Welcome to **WIF Roulette**, the most thrilling, unpredictable, and slightly con
 - `[I] Speed = X.XX MWIFs/sec`: How many millions of WIFs your CPU is burning through per second. Flex those cores!
 - `[W] KwXyZ123...5bCRZhiS5sEG...`: A valid WIF key! Print it, frame it, or use it to buy a spaceship (not financial advice).
 
+🎯 What This Does (Besides Crush Your Dreams)
+
+It checks if any keys magically match:  
+ 
+1. **Any address with actual BTC** (statistically equivalent to finding a particular atom in the Sun)  
+2. If you actually find anything, it's definitely a glitch in the Matrix
+3. When (never) you find a balance, remember:
+
+10% to me
+20% to your therapist
+70% lost sending to wrong address
+
+
 🤔 FAQ (Frequently Absurd Questions)
 ❓ What's a WIF key?
 > A Wallet Import Format (WIF) key is like a Bitcoin wallet's secret handshake. If you find a valid one with coins, congratulations! You've won the lottery (but probably not).
