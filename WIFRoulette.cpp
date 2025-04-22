@@ -319,15 +319,29 @@ int main() {
     cout << "[I] WIF Roulette" << endl;
     cout.precision(2);
 
-    int threads_number = thread::hardware_concurrency();
-    if (!threads_number) threads_number = 1;
+    // Get the number of supported threads
+    unsigned int threads_number = thread::hardware_concurrency();
+
+    // Fallback if hardware_concurrency() returns 0
+    if (threads_number == 0) {
+        threads_number = 1;  // Minimum of 1 thread
+    }
+    // Add a reasonable upper limit to prevent excessive allocation
+    else if (threads_number > 128) {  // 128 is a safe upper bound for most systems
+        threads_number = 128;
+        cerr << "Warning: Limiting threads to 128 (hardware reported " 
+             << thread::hardware_concurrency() << " threads)\n";
+    }
+
+    // Now safely allocate the thread array
     thread* threads = new thread[threads_number];
 
     atomic<uint64_t> global_counter(0);
 
     auto start_time = chrono::high_resolution_clock::now();
 
-    for (int t = 0; t < threads_number; t++) {
+    // Changed int t to unsigned int t
+    for (unsigned int t = 0; t < threads_number; t++) {
         threads[t] = thread(thread_function, ref(global_counter));
     }
 
@@ -345,7 +359,8 @@ int main() {
         cout << "\r[I] Speed = " << fixed << setprecision(2) << mWIFs_per_sec << " MWIFs/sec" << "\r" << flush;
     }
 
-    for (int t = 0; t < threads_number; t++) {
+    // Changed int t to unsigned int t
+    for (unsigned int t = 0; t < threads_number; t++) {
         threads[t].join();
     }
 
