@@ -141,15 +141,15 @@ try:
 
                     if balance_addc:
                         log(f"[I] Balance for {addc}:", log_file)
-                        log(f"    Confirmed: {balance_addc['confirmed']} BTC", log_file)
-                        log(f"    Unconfirmed: {balance_addc['unconfirmed']} BTC", log_file)
-                        log(f"    Total: {balance_addc['total']} BTC", log_file)
+                        log(f"[I] Confirmed: {balance_addc['confirmed']} BTC", log_file)
+                        log(f"[I] Unconfirmed: {balance_addc['unconfirmed']} BTC", log_file)
+                        log(f"[I] Total: {balance_addc['total']} BTC", log_file)
 
                     if balance_addu:
                         log(f"[I] Balance for {addu}:", log_file)
-                        log(f"    Confirmed: {balance_addu['confirmed']} BTC", log_file)
-                        log(f"    Unconfirmed: {balance_addu['unconfirmed']} BTC", log_file)
-                        log(f"    Total: {balance_addu['total']} BTC", log_file)
+                        log(f"[I] Confirmed: {balance_addu['confirmed']} BTC", log_file)
+                        log(f"[I] Unconfirmed: {balance_addu['unconfirmed']} BTC", log_file)
+                        log(f"[I] Total: {balance_addu['total']} BTC", log_file)
 
                     TARGET_PREFIX = TARGET_ADDRESS[:3]
                     # Check and log only the matching address (addc or addu)
