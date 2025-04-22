@@ -5,6 +5,7 @@ import os
 import sys
 import threading
 import time
+import requests 
 from itertools import cycle
 
 if os.name == 'nt':
@@ -71,6 +72,27 @@ def animate():
     except KeyboardInterrupt:
         pass
 
+# === Mempool Check Function ===
+def check_address_balance(address):
+    """Check the balance of a Bitcoin address using mempool.space API"""
+    try:
+        response = requests.get(f"https://mempool.space/api/address/{address}")
+        response.raise_for_status()
+        data = response.json()
+        
+        # Return both confirmed and unconfirmed balances
+        return {
+            'address': address,
+            'confirmed': data.get('chain_stats', {}).get('funded_txo_sum', 0) / 100000000,
+            'unconfirmed': data.get('mempool_stats', {}).get('funded_txo_sum', 0) / 100000000,
+            'total': (data.get('chain_stats', {}).get('funded_txo_sum', 0) + 
+                     data.get('mempool_stats', {}).get('funded_txo_sum', 0)) / 100000000
+        }
+    except requests.exceptions.RequestException as e:
+        log(f"[E] Failed to check balance for {address}: {str(e)}")
+        return None
+
+
 # === Main Script ===
 try:
     global stop_animation, animation_active
@@ -113,6 +135,22 @@ try:
                     addu = ice.privatekey_to_address(0, False, dec_key)
                     log(f"[I] {addc}", log_file)
                     log(f"[I] {addu}", log_file)
+                    # Check balances for both addresses
+                    balance_addc = check_address_balance(addc)
+                    balance_addu = check_address_balance(addu)
+
+                    if balance_addc:
+                        log(f"[I] Balance for {addc}:", log_file)
+                        log(f"    Confirmed: {balance_addc['confirmed']} BTC", log_file)
+                        log(f"    Unconfirmed: {balance_addc['unconfirmed']} BTC", log_file)
+                        log(f"    Total: {balance_addc['total']} BTC", log_file)
+
+                    if balance_addu:
+                        log(f"[I] Balance for {addu}:", log_file)
+                        log(f"    Confirmed: {balance_addu['confirmed']} BTC", log_file)
+                        log(f"    Unconfirmed: {balance_addu['unconfirmed']} BTC", log_file)
+                        log(f"    Total: {balance_addu['total']} BTC", log_file)
+
                     TARGET_PREFIX = TARGET_ADDRESS[:3]
                     # Check and log only the matching address (addc or addu)
                     if addc.startswith(TARGET_PREFIX):
