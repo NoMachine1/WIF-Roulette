@@ -15,13 +15,13 @@ Welcome to **WIF Roulette**, the most thrilling, unpredictable, and slightly con
 
 
 # 2. Compile with the fury of a thousand suns
-   ```bash
+
    make
 
 (Translation: "Make it go vroom!")
 
 # 3. Run like you're escaping a zombie apocalypse:
-   ```bash
+
    python3 WIFRoulette.py
 
 ---
