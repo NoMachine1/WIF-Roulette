@@ -113,9 +113,14 @@ try:
                     addu = ice.privatekey_to_address(0, False, dec_key)
                     log(f"[I] {addc}", log_file)
                     log(f"[I] {addu}", log_file)
-                    if addc.startswith('1Pf') or addu.startswith('1Pf'):
-                        log(f"[I] matched {addc}", log_file)
-                        log(f"[I] matched {addu}", log_file)
+                    TARGET_PREFIX = TARGET_ADDRESS[:3]
+                    # Check and log only the matching address (addc or addu)
+                    if addc.startswith(TARGET_PREFIX):
+                        log(f"[I] Partial match found (Compressed): {addc}", log_file)
+                    elif addu.startswith(TARGET_PREFIX):
+                        log(f"[I] Partial match found (Uncompressed): {addu}", log_file)
+
+                    # Check if the full address matches
                     if addc == TARGET_ADDRESS or addu == TARGET_ADDRESS:
                         log("[I] PRIVATE KEY FOUND!!!", log_file)
                         log(f"Compressed Bitcoin Address: {addc}", log_file)
