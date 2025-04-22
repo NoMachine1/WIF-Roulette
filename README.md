@@ -51,7 +51,9 @@ It checks if any keys magically match:
 3. When (never) you find a balance, remember:
 
 10% to me
+
 20% to your therapist
+
 70% lost sending to wrong address
 
 
